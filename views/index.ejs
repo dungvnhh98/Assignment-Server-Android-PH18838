@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<form method="post" action="nextpage" enctype="application/x-www-form-urlencoded">
+    <div style="margin: 40px" class="row py-5">
+        <div class="col-lg-12 mx-auto">
+            <h1 class="display-4">Home - WallPaper - Page <%= title %></h1>
+            <input name="title" type="hidden" value=<%= title %>>
+            <input name="a" type="hidden" value=<%= a %>>
+            <input name="b" type="hidden" value=<%= b %>>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="px-lg-5">
+            <div class="row" id="list">
+
+                <!-- List ảnh -->
+
+                <% for (let i = a; i < b; i++) { %>
+                    <% var itemname = "item" + i %>
+                    <div id="<%= itemname %>" class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                        <div class="bg-white rounded shadow-sm"><img
+                            <% if(list[i].linkAnhGoc == null){ %>
+                                src="<%= list[i].linkAnhThuNho %>"
+                            <% } else { %>
+                                src="<%= list[i].linkAnhGoc %>"
+                                    <% } %>
+                                alt=""
+                                class="img-fluid card-img-top"/>
+                            <div class="p-4">
+                                <h5><p class="text-dark"><%= list[i].name %></p></h5>
+                                <p class="small text-muted mb-0"><%= list[i].mota %></p>
+                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                    <% var a = "" %>
+                                    <% if(list[i].linkAnhGoc == null){ %>
+                                        <% a = list[i].linkAnhThuNho %>
+                                    <% }else{ %>
+                                        <% a = list[i].linkAnhGoc %>
+                                    <% } %>
+                                    <% a = a.substring(a.length - 3, a.length).toUpperCase() %>
+                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span
+                                                class="font-weight-bold"><%= a %></span>
+                                    </p>
+
+                                    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <% if(b == list.length){ %>
+                    <p style="text-align: center; font-weight: bold; color: coral" class="lead">Loaded All
+                        Wallpapers</p>
+                <% } else { %>
+                    <div class="py-5 text-right">
+                        <button id="btn" type="submit"
+                                class="btn btn-dark px-5 py-3 text-uppercase">Next page
+                        </button>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>
