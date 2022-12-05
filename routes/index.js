@@ -36,10 +36,8 @@ router.post('/nextpage', function (req, res, next) {
                 res.render('index', {list: data, a: b, b: b + 20, title: title + 1})
             }
         } else {
-            console.log("vào đây" + 3)
             res.render('index', {list: data, a: a, b: b, title: title})
         }
-
     })
 });
 
